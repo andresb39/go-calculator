@@ -31,17 +31,25 @@ func ReadInput() string {
 	return scanner.Text()
 }
 
-func ParseInput(x string) int {
-	operador, _ := strconv.Atoi(x)
-	return operador
+func ParseInput(x string) (int, error) {
+	result, err := strconv.Atoi(x)
+	return result, err
 }
 
-func GetNumber(x string) (int, int) {
+func GetNumber(x string) (int, int, error) {
 	fmt.Printf("Enter First Number: ")
-	first_numbre := ParseInput(ReadInput())
+	firstNumbre, err := ParseInput(ReadInput())
+	if err != nil {
+		fmt.Println(err)
+		panic("Error enter a number... please try again")
+	}
 	fmt.Printf("Enter Second Number: ")
-	second_number := ParseInput(ReadInput())
-	return first_numbre, second_number
+	secondNumber, err := ParseInput(ReadInput())
+	if err != nil {
+		fmt.Println(err)
+		panic("Error enter a number... please try again")
+	}
+	return firstNumbre, secondNumber, err
 }
 
 func Response(result int) {
@@ -51,19 +59,20 @@ func Response(result int) {
 func (c Calc) Calculate(option string) {
 	switch option {
 	case "1":
-		a, b := GetNumber("sum")
+		a, b, _ := GetNumber("sum")
 		Response(c.Sum(a, b))
 	case "2":
-		a, b := GetNumber("subtract")
+		a, b, _ := GetNumber("subtract")
 		Response(c.Subtract(a, b))
 	case "3":
-		a, b := GetNumber("multiply")
+		a, b, _ := GetNumber("multiply")
 		Response(c.Multiply(a, b))
 	case "4":
-		a, b := GetNumber("divide")
+		a, b, _ := GetNumber("divide")
 		Response(c.Divide(a, b))
 	default:
 		fmt.Println("¡Bye!")
 		os.Exit(0)
 	}
+
 }
