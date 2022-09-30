@@ -40,14 +40,14 @@ func GetNumber(x string) (int, int, error) {
 	fmt.Printf("Enter First Number: ")
 	firstNumbre, err := ParseInput(ReadInput())
 	if err != nil {
-		fmt.Println(err)
-		panic("Error enter a number... please try again")
+		fmt.Println("Error is not a number... please try again")
+		os.Exit(2)
 	}
 	fmt.Printf("Enter Second Number: ")
 	secondNumber, err := ParseInput(ReadInput())
 	if err != nil {
-		fmt.Println(err)
-		panic("Error enter a number... please try again")
+		fmt.Println("Error is not a number ... please try again")
+		os.Exit(2)
 	}
 	return firstNumbre, secondNumber, err
 }
